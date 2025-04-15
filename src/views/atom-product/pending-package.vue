@@ -54,7 +54,7 @@ export default {
   mounted() {
     const a = document.querySelector('table tbody')
     this.appendEle(0, '通信服务', 'image_message')
-    this.appendEle(3, '信息服务', 'image_info')
+    this.appendEle(2, '信息服务', 'image_info')
     console.log(a)
   },
   methods: {

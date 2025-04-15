@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      all: [{ checked: true }, { checked: false }, { checked: true }],
+      all: [],
       category: '通信产品',
     }
   },
