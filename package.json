@@ -1,0 +1,27 @@
+{
+  "name": "my-vue-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "serve": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vue/babel-preset-jsx": "^1.4.0",
+    "element-ui": "^2.15.10",
+    "quarkd": "^1.0.12",
+    "sass": "^1.66.1",
+    "vite-plugin-vue2": "^2.0.2",
+    "vue": "2.6.11",
+    "vue-codemirror": "^4.0.6",
+    "vue-router": "^3.6.5",
+    "vxe-table": "^3.9.0-rc.10"
+  },
+  "devDependencies": {
+    "vite": "^3.2.0",
+    "vue-template-compiler": "2.6.11"
+  }
+}
