@@ -1,45 +1,48 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from '../App.vue'
-import Home from '../components/Home.vue'
-import Table from '../components/Table.vue'
-import AppTable from '../components/AppTable.vue'
-import codemirror from '../components/codemirror-demo.vue'
-import Vxetable from '../components/vxetable.vue'
-import Parent from '../views/vue/Parent.vue'
+import Product from '../views/atom-product/index.vue'
+import AtomStore from '../views/atom-product/atom-store.vue'
+import Package from '../views/atom-product/product-package.vue'
+import PendingPackage from '../views/atom-product/pending-package.vue'
+import ProductList from '../views/atom-product/product-package.vue'
+import ProductQuery from '../views/atom-product/product-query.vue'
+import Dialog from '../components/ai-dialog.vue'
 
-import userRoutes from './user'
 Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: App,
+    component: Product,
   },
   {
-    path: '/home',
-    component: Home,
+    path: '/products', // 产品列表首页
+    component: Product,
   },
   {
-    path: '/table',
-    component: Table,
+    path: '/store', // 原子货架
+    component: AtomStore,
   },
   {
-    path: '/apptable',
-    component: AppTable,
+    path: '/package', // 产品封装
+    component: Package,
   },
   {
-    path: '/codemirror',
-    component: codemirror,
+    path: '/pending-package', // 待封装清单
+    component: PendingPackage,
   },
   {
-    path: '/vue',
-    component: Parent,
+    path: '/product-list', // 产品清单
+    component: ProductList,
   },
   {
-    path: '/vxe',
-    component: Vxetable,
+    path: '/product-query', // 产品目录查询
+    component: ProductQuery,
   },
-  ...userRoutes,
+  {
+    path: '/dialog', // 产品目录查询
+    component: Dialog,
+  },
 ]
 export default new VueRouter({
   mode: 'hash',

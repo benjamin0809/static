@@ -1,93 +1,81 @@
 <template>
-  <el-form :model="ruleForm"
-           ref="ruleForm"
-           :rules="rules"
-           label-suffix="："
-           label-width="0"
-           class="demo-ruleForm">
-    <div class="button-box">
-      <el-button type="primary"
-                 @click="addHeader">添加header头</el-button>
+  <header>
+    <div>
+      <span class="title">一级产商品中心</span>
+      <i class="el-icon-s-fold"></i>
     </div>
-    <el-table :data="ruleForm.headers"
-              border>
-      <el-table-column label="Header">
-        <template slot-scope="scope">
-          <el-form-item required
-                        :prop="`headers.${scope.$index}.name`">
-            <el-input clearable
-                      v-model="ruleForm.headers[scope.$index].name"></el-input>
-          </el-form-item>
-        </template>
-      </el-table-column>
-      <el-table-column label="缺省值">
-        <template slot-scope="scope">
-          <el-form-item required
-                        :prop="`headers.${scope.$index}.value`">
-            <el-input clearable
-                      v-model="ruleForm.headers[scope.$index].value"></el-input>
-          </el-form-item>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-form-item label="透传Header"
-                  label-width="120px"
-                  prop="transHeader">
-      <el-radio-group v-model="ruleForm.transHeader">
-        <el-radio label="1">是</el-radio>
-        <el-radio label="0">否</el-radio>
-      </el-radio-group>
-    </el-form-item>
-  </el-form>
+    <div data-v-59286f9f="" class="tag-box">
+      <span data-v-59286f9f="" command="PCC_node_00" class="tag ">全网产商品管理</span>
+      <span data-v-59286f9f="" command="CPCC_node_00" class="tag">分省产商品管理</span>
+      <span data-v-59286f9f="" command="charge_node_00" class="tag">资费管理</span>
+      <span data-v-59286f9f="" command="market_node_00" class="tag">营销案管理</span>
+      <span data-v-59286f9f="" command="gear_node_00" class="tag">政企计收规则管理</span>
+      <span data-v-59286f9f="" command="gear_node_00" class="tag active" @click="back">原子产品库</span>
+    </div>
+    <div style="margin-left:auto;margin-right:12px;">
+      <i class="el-icon-info"></i>
+      <i class="el-icon-message-solid"></i>
+      <span class="date">2025年4月15日</span>
+      <i class="el-icon-user"></i>
+      <span class="name">肖91</span>
+      <i class="el-icon-arrow-down"></i>
+    </div>
+  </header>
 </template>
 <script>
-export default {
+export default { 
   name: 'Header',
-  data () {
-    return {
-      ruleForm: {
-        headers: [{
-          name: 'token',
-          value: '123'
-        }],
-        transHeader: '1'
-      },
-      rules: {
-        name: [
-          { required: true, message: '请输入API URL', trigger: 'blur' }
-        ],
-        timeout: [
-          { required: true, message: '请输入超时时间', trigger: 'change' }
-        ],
-      }
-    };
-  },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
-    },
-    addHeader () {
-      console.log(this.ruleForm)
-      this.ruleForm.headers.push({
-        name: '',
-        value: ''
-      })
-    },
-    resetForm (formName) {
-      this.$refs[formName].resetFields();
+    back() {
+      this.$router.push('/products')
     }
   }
 }
 </script>
-<style scoped>
-.button-box {
-  margin-bottom: 12px;
+<style lang="scss" scoped>
+header {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  top: 0;
+  display: flex;
+  align-items: center;
+  background: #5584ff;
+  color: #fff;
+  .title {
+    margin-left: 25px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .date {
+    color: #fff !important;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    text-decoration: underline;
+  }
+}
+.tag-box {
+  margin-left: 12px;;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  left: 0;
+  position: relative;
+  transition: all 0.35s;
+  width: max-content;
+  cursor: pointer;
+  .tag {
+    border-radius: 36px;
+    padding: 2px 16px;
+    line-height: 24px;
+    min-width: max-content;
+    margin: 0 4px;
+    &.active {
+      background: #fff;
+      color: #5584ff;
+    }
+  }
 }
 </style>
