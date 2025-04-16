@@ -5,9 +5,11 @@ import Product from '../views/atom-product/index.vue'
 import AtomStore from '../views/atom-product/atom-store.vue'
 import Package from '../views/atom-product/product-package.vue'
 import PendingPackage from '../views/atom-product/pending-package.vue'
+import DonePackage from '../views/atom-product/done-package.vue'
 import ProductList from '../views/atom-product/product-package.vue'
 import ProductQuery from '../views/atom-product/product-query.vue'
 import Dialog from '../components/ai-dialog.vue'
+import AiDialog from '../components/ai-config/index.vue'
 
 Vue.use(VueRouter)
 const routes = [
@@ -32,6 +34,10 @@ const routes = [
     component: PendingPackage,
   },
   {
+    path: '/done-package', // 已封装清单
+    component: DonePackage,
+  },
+  {
     path: '/product-list', // 产品清单
     component: ProductList,
   },
@@ -42,6 +48,10 @@ const routes = [
   {
     path: '/dialog', // 产品目录查询
     component: Dialog,
+  },
+  {
+    path: '/aidialog', // 产品目录查询
+    component: AiDialog,
   },
 ]
 export default new VueRouter({

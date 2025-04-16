@@ -1,15 +1,15 @@
 <template>
   <div style="height: 400px; padding: 24px; text-align: center">
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">原子产品库</el-breadcrumb-item>
-      <el-breadcrumb-item><a >原子货架</a></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/store' }">原子货架</el-breadcrumb-item>
+      <el-breadcrumb-item><a>细分市场原子货架</a></el-breadcrumb-item>
     </el-breadcrumb>
-   
+
     <div class="ppp-box">
       <h1>细分市场原子货架</h1>
     </div>
     <div class="market-box">
-      <div class="market" :class="index === 0 ? 'selected' : ''" v-for="(item, index) in data.市场分类" :key="index">{{ item }}</div>
+      <div class="market" :class="market === item ? 'selected' : ''" @click="marketChange(item)" v-for="(item, index) in data.市场分类" :key="index">{{ item }}</div>
     </div>
     <div class="line"></div>
     <div class="product-box">
@@ -17,10 +17,10 @@
       <div class="category" :class="item === category ? 'selected' : ''" v-for="(item, index) in data.产品分类" @click="categoryChange(item)" :key="index">{{ item }}</div>
     </div>
     <div class="input-box">
-      <el-input style="width: 240px;;" placeholder="请输入产品目录名称进行查询" >
+      <el-input style="width: 240px" placeholder="请输入产品目录名称进行查询">
         <i slot="suffix" class="el-input__icon el-icon-search"></i>
       </el-input>
-       <Popover style="text-align: right" ref="popover"> </Popover>
+      <Popover style="text-align: right" ref="popover"> </Popover>
     </div>
     <!-- <div class="title-box">
       {{ category }}
@@ -50,7 +50,7 @@
               <div class="a-center desc flex">
                 <span v-if="category === '通信产品'"> <span style="color: #666666">归属机构：</span>{{ o.归属机构 }}</span>
                 <span v-else>产品类型：{{ o.产品类型 }}</span>
-                <el-button size="mini" class="btn" @click="addToList">加入清单</el-button>
+                <el-button size="mini" class="btn" @click="addToList(o)">加入清单</el-button>
               </div>
             </div>
           </div>
@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class="page-box">
-      <el-pagination background layout="prev, pager, next" :total="1000"> </el-pagination>
+      <el-pagination background layout="prev, pager, next" :total="36"> </el-pagination>
     </div>
     <el-dialog :visible.sync="dialogVisible" width="60%">
       <img v-if="category === '通信产品'" src="../../assets/store/cmmdt.png" alt="confirm" width="100%" />
@@ -67,7 +67,7 @@
   </div>
 </template>
 <script>
-import { storedata } from './data'
+import { storedata, } from './data'
 import Popover from './popover.vue'
 export default {
   name: 'Products',
@@ -80,21 +80,31 @@ export default {
       selected: [1, 2],
       data: storedata,
       category: '通信产品',
+      market: '银发市场',
       dialogVisible: false,
     }
   },
   computed: {
     cards() {
+      if (this.category === '通信产品') {
+        return this.data[this.market + this.category]
+      }
       return this.data[this.category]
     },
   },
   methods: {
+    marketChange(market) {
+      this.market = market
+    },
     categoryChange(category) {
       this.category = category
     },
-    addToList() {
+    addToList(item) {
+      console.log(item)
       this.$message.success('已加入清单')
-      this.$refs.popover.add()
+      item.服务 = this.category === '通信产品' ? '通信服务' : '信息服务'
+      item.orgName = this.category === '自有产品' ? '互联网公司' : '在线公司'
+      this.$refs.popover.add(item)
     },
     goPackage() {
       this.$router.push('/pending-package')
@@ -123,6 +133,7 @@ export default {
     border-bottom: 2px solid #5584ff;
   }
   .market {
+    cursor: pointer;
     text-align: center;
     padding: 16px 0;
     margin-left: 70px;
@@ -133,6 +144,9 @@ export default {
     }
     &:first-child {
       padding-left: 0px;
+    }
+    &:hover {
+      opacity: 0.8;
     }
   }
 }
@@ -170,7 +184,7 @@ export default {
 }
 
 .ppp-box {
-  margin-top: 20px;;
+  margin-top: 20px;
   background-size: cover;
   height: 110px;
   display: flex;
@@ -230,7 +244,7 @@ export default {
     .btn {
       background: rgb(2, 103, 255, 0.25);
       color: #fff;
-      border-radius: 18px; 
+      border-radius: 18px;
       margin-left: auto;
     }
   }

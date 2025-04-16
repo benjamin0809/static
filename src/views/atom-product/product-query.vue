@@ -86,7 +86,7 @@
         </div>
       </div>
       <div class="page-box">
-        <el-pagination background layout="prev, pager, next" :total="1000"> </el-pagination>
+        <el-pagination background layout="prev, pager, next" :total="153"> </el-pagination>
       </div>
     </div>
   </div>

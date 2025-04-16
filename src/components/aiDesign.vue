@@ -33,6 +33,7 @@
               您好！我是智能产品封装助手，您可以通过与我对话快速完成产品基本封装。您也可以关闭直接在当前页面发起配置。
             </span>
           </div>
+          <div style="color: red;">页面展示的信息是AI参照被打包产品的历史打包情况进行预填的信息，仅供参考，您可根据实际需要进行调整。</div>
           <div><span style="color:#7F7F7F;">有使用疑问或了解产品封装流程可点击查看操作文档了解设计步骤。</span><span style="color:#0000FF; cursor: pointer;">查看文档&gt;</span></div>
         </div>
         <div class="message-box">

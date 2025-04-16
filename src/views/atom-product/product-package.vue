@@ -3,7 +3,7 @@
     <div class="product-package-title">
       <span class="title-name left">产品封装</span>
       <div>
-        <button class="next">下一步</button>
+        <button class="next" @click="save">保存</button>
         <button class="back" @click="$router.back()">返回</button>
       </div>
     </div>
@@ -22,8 +22,8 @@
       <!-- 右侧内容区域 -->
       <div class="content">
         <div class="action">
-          <button class="add">+ 新建</button>
-          <button class="copy">复制当前商品</button>
+          <!-- <button class="add">+ 新建</button> -->
+          <!-- <button class="copy">复制当前商品</button> -->
           <button class="ai-design" @click="show = true">封装助手</button>
         </div>
         <el-tabs v-model="activeName" type="card">
@@ -36,7 +36,7 @@
                     <el-row>
                       <el-form-item label="商品分类：">
                         <el-select v-model="form.categoryId" placeholder="请选择">
-                          <el-option label="可选包/组合包" value="1"></el-option>
+                          <el-option label="商品组合/基础套餐组合" value="1"></el-option>
                         </el-select>
                       </el-form-item>
                     </el-row>
@@ -78,7 +78,7 @@
               </el-collapse-item>
 
               <!-- 商品构成 -->
-              <el-collapse-item title="商品构成" name="2">
+              <el-collapse-item title="包含产商品" name="2">
                 <div>
                   <div class="composition-items">
                     <el-tag v-for="(item, index) in compositionItems" :key="index" closable type="info">
@@ -90,8 +90,82 @@
 
               <!-- 商品规则 -->
               <el-collapse-item title="商品规则" name="3">
-                <div class="commodityRules">
-                  <i class="iconfont el-icon-plus" style="font-size: 23px"></i>
+                <div class="">
+                  <el-form :model="form" label-width="230px">
+                    <el-row :gutter="10">
+                      <el-col :span="12">
+                        <el-form-item label="订购生效规则：">
+                          <el-select v-model="form.orderRule" style="width: 100%" placeholder="请选择">
+                            <el-option label="立即生效" value="立即生效"></el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="12">
+                        <el-form-item label="退订生效规则：" label-width="120px">
+                          <el-select v-model="form.unorderRule" style="width: 100%" placeholder="请选择">
+                            <el-option label="次月生效" value="次月生效"></el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row :gutter="10">
+                      <el-col :span="12">
+                        <el-form-item label="变更生效规则：">
+                          <el-select v-model="form.alterRule" style="width: 100%" placeholder="请选择">
+                            <el-option label="次月生效" value="次月生效"></el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row :gutter="10">
+                      <el-col :span="12">
+                        <el-form-item label="办理当月扣费规则：">
+                          <el-select v-model="form.办理当月扣费规则" style="width: 100%" placeholder="请选择">
+                            <el-option label="按月收取" value="按月收取"></el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="12">
+                        <el-form-item label="次月扣费规则：" label-width="120px">
+                          <el-select v-model="form.次月扣费规则" style="width: 100%" placeholder="请选择">
+                            <el-option label="按月收取" value="按月收取"></el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row :gutter="10">
+                      <el-col :span="12">
+                        <el-form-item label="订购生效期内是否允许重复订购：">
+                          <el-select v-model="form.订购生效期内是否允许重复订购" placeholder="请选择" style="width: 100%">
+                            <el-option label="否" value="否"></el-option>
+                            <el-option label="是" value="是"></el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row :gutter="10">
+                      <el-col :span="12">
+                        <el-form-item label="订购次数上限：">
+                          <el-input v-model="form.count" placeholder="请选择">
+                          </el-input>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row :gutter="10">
+                      <el-col :span="12">
+                        <el-form-item label="订购失效期限设置：" >
+                          <el-select v-model="form.订购失效期限设置" style="width: 100%"  placeholder="请选择">
+                            <el-option label="按指定日期失效" value="按指定日期失效"></el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="12">
+                        <el-form-item label="订购失效日期：" label-width="120px">
+                          <el-date-picker v-model="form.订购失效日期" style="width: 100%"  type="date" placeholder="选择日期"></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                  </el-form>
                 </div>
               </el-collapse-item>
 
@@ -120,8 +194,6 @@
               </el-collapse-item>
             </el-collapse>
           </el-tab-pane>
-          <el-tab-pane label="商品2" name="second"></el-tab-pane>
-          <el-tab-pane label="商品3" name="third"></el-tab-pane>
         </el-tabs>
       </div>
       <AiDesign :show.sync="show"></AiDesign>
@@ -138,28 +210,40 @@ export default {
     return {
       show: true,
       form: {
-        categoryId: '',
+        orderRule: '立即生效',
+        unorderRule: '次月生效',
+        alterRule: '',
+        categoryId: '1',
         name: '',
+        count: '99999',
+        订购失效日期: '2029-12-31',
+        订购生效期内是否允许重复订购: '否',
+        订购失效期限设置: '按指定日期失效',
+        办理当月扣费规则: '按月收取',
+        次月扣费规则: '按月收取',
         desc: '',
-        effectiveDateEnd: '',
-        effectiveDateBegin: '',
-        chargeType: '',
-        tags: '',
-        province: [],
+        effectiveDateEnd: '2029-12-31',
+        effectiveDateBegin: '2025-04-21',
+        chargeType: '连续',
+        tags: '5G资费产品',
+        province: ['北京', '天津', '上海', '重庆', '河北', '山西', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '海南', '四川', '贵州', '云南', '陕西', '甘肃', '青海', '台湾', '内蒙古', '广西', '西藏', '宁夏', '新疆', '香港', '澳门'],
       },
       form2: {
-        fixedFee: '',
+        fixedFee: '221',
       },
-      checkAll: false,
+      checkAll: true,
       isIndeterminate: false,
       activeCollapse: ['1', '2', '3', '4', '5'], // 默认展开的栏目
-      compositionItems: ['20GB国内通用流量', '不限量热门APP定向流量', '每月5天国际漫游流量'],
-      productRelations: ['10G爱奇艺定向流量包', '10G腾讯视频定向流量包', '10G优酷视频定向流量包'],
+      compositionItems: ['全球通5GA尊享套卡199档', '移动云盘白银会员', '优酷VIP会员周卡（优惠版）'],
+      productRelations: ['全球通5GA尊享套餐199档', '全球通5GA尊享套餐299档', '全球通5GA尊享套卡299档'],
       activeName: 'first',
       cities: ['北京', '天津', '上海', '重庆', '河北', '山西', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '海南', '四川', '贵州', '云南', '陕西', '甘肃', '青海', '台湾', '内蒙古', '广西', '西藏', '宁夏', '新疆', '香港', '澳门'],
     }
   },
   methods: {
+    save() {
+      this.$router.push('/done-package')
+    },
     handleCheckAllChange(val) {
       this.form.province = val ? this.cities : []
       this.isIndeterminate = false
@@ -196,7 +280,7 @@ export default {
     margin-left: 200px;
     padding: 20px;
     overflow-y: auto;
-
+    // max-width: 1200px;
     .action {
       display: flex;
       justify-content: flex-end;

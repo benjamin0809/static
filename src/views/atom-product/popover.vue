@@ -14,9 +14,9 @@
           <el-checkbox v-model="item.checked"></el-checkbox>
           <img class="u18_img" src="../../assets/store/popover.png" />
           <div class="content">
-            <div style="font-weight: bold">产品名称*****</div>
-            <div style="color: gray">专业公司名称</div>
-            <div style="color: gray">移动连接/固话</div>
+            <div style="font-weight: bold">{{  item.name }}</div>
+            <div style="color: gray">{{  item.orgName }}</div>
+            <div style="color: gray">{{ item.service }}</div>
           </div>
           <div class="content" style="margin-left: auto; font-size: 24px; cursor: pointer">
             <i class="el-icon-delete" @click="handleDelete(index)"></i>
@@ -52,8 +52,10 @@ export default {
     }
   },
   methods: {
-    add() {
-      this.all.push({ checked: true })
+    add(item) {
+      const name = item.产品名称 || ''
+      const orgName = item.orgName || '在线公司'
+      this.all.push({ checked: true, name, orgName, service: item.服务 })
     },
     categoryChange(category) {
       this.category = category
