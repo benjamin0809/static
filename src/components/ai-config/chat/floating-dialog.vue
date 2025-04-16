@@ -43,7 +43,7 @@ export default {
   computed: {
     dialogPosition() {
       return {
-        transformOrigin: `${this.iconSize / 2}px ${this.iconSize / 2}px`
+        transformOrigin: `-${this.iconSize / 2}px -${this.iconSize / 2}px`
       }
     }
   },
@@ -99,8 +99,8 @@ export default {
 
 .dialog-container {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 40px;
+  left: 40px;
   width: 300px;
   height: 50vh;
 }

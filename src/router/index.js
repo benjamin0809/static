@@ -10,6 +10,7 @@ import ProductList from '../views/atom-product/product-package.vue'
 import ProductQuery from '../views/atom-product/product-query.vue'
 import Dialog from '../components/ai-dialog.vue'
 import AiDialog from '../components/ai-config/index.vue'
+import NewDialog from '../views/atom-product/ai-dialog.vue'
 
 Vue.use(VueRouter)
 const routes = [
@@ -53,6 +54,11 @@ const routes = [
     path: '/aidialog', // 产品目录查询
     component: AiDialog,
   },
+  {
+    path: '/newdialog', // 产品目录查询
+    component: NewDialog,
+  },
+  
 ]
 export default new VueRouter({
   mode: 'hash',

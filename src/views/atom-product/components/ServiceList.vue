@@ -58,7 +58,7 @@ export default {
         preHight += app.items.length > 4 ? Math.ceil(app.items.length / 4) * 40 : 40
       })
       if (preHight < 130) return ''
-      return item.imgPath ? `src/assets/${item.imgPath}.png` : ''
+      return item.imgPath || ''
     },
     sendClick (item) {
       this.$emit('clickItem', item)

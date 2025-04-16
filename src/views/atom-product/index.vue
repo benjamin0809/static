@@ -90,6 +90,10 @@
 </template>
 <script>
 import ServiceList from './components/ServiceList.vue';
+import bg0 from '../../assets/left-bottom-bg0.png'
+import bg1 from '../../assets/left-bottom-bg1.png'
+import bg2 from '../../assets/left-bottom-bg2.png'
+import bg3 from '../../assets/left-bottom-bg3.png'
 export default {
   name: "Products",
   components: {
@@ -106,7 +110,7 @@ export default {
         {
           "title": "移动信息服务",
           "description": "基于无线通信技术，为用户提供的无需实体线路的通信连接服务，如视频、语音、流量等。",
-          imgPath: 'left-bottom-bg0',
+          imgPath: bg0,
           "subApp": [
             {
               "subTitle": "内容应用",
@@ -147,7 +151,7 @@ export default {
         {
           "title": "家庭信息服务",
           "description": "以家庭网络和智能硬件为入口，围绕用户家庭娱行、扫区、大车求、家智能安防需求，及乡庭场景，打造的多样化信息服务，如移动爱家、FTTR、移动社区等。",
-          imgPath: 'left-bottom-bg1',
+          imgPath: bg1,
           "subApp": [
             {
               "subTitle": "智家应用",
@@ -184,7 +188,7 @@ export default {
         {
           "title": "云计算服务",
           "description": "基于移动云+5G双引擎的企业级云计算服务，如移动云、IDC等。",
-          imgPath: 'left-bottom-bg2',
+          imgPath: bg2,
           "subApp": [
             {
               "subTitle": "",
@@ -208,7 +212,7 @@ export default {
         {
           "title": "大数据信息服务",
           "description": "依托运营商级数据资产围绕企业、政府生产运作需求，打造的风控、营销、决策等名类数据要素化服务，如认证大数据、梧桐风控等。",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "",
@@ -226,7 +230,7 @@ export default {
         {
           "title": "物联网信息服务",
           "description": "依托物联网连接提供的增值信息服务，如OneNet、OnePark、千里眼等。",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "",
@@ -244,7 +248,7 @@ export default {
         {
           "title": "政务及行业应用服务",
           "description": "面向政府与垂直行业提供的各类标准化产品、行业数智化解决方案，如云视讯、移动办公、OneCity等",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "",
@@ -262,7 +266,7 @@ export default {
         {
           "title": "安全信息服务",
           "description": "为用户提供的个人安全、家庭安全、企业安全等服务，如移动安全管家、OnsS星辰安全等，部分安全产品是基于其他产品融合安全技术、升级打造而型、金的能力",
-          imgPath: 'left-bottom-bg2',
+          imgPath: bg2,
           "subApp": [
             {
               "subTitle": "安全",
@@ -291,7 +295,7 @@ export default {
         {
           "title": "新型信息服务",
           "description": "基于AI大模型等人工智能技术为用户提供的智能信息服务，如AI视频彩铃AI速记等，与安全信息服务相同，AI信息服务与其他产品可能存在交叉。",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "量子计算",
@@ -306,7 +310,7 @@ export default {
         {
           "title": "AI信息服务",
           "description": "基于AI大模型等人工智能技术为用户提供的智能信息服务，如AI视频彩铃AI速记等，与安全信息服务相同，AI信息服务与其他产品可能存在交叉",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "AI+产品",
@@ -339,7 +343,7 @@ export default {
         {
           "title": "固定连接",
           "description": "基于移动云+5G双引擎的企业级云计算服务，如移动云、IDC等。",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "",
@@ -354,7 +358,7 @@ export default {
         {
           "title": "移动连接",
           "description": "基于无线通信技术，为用户提供的无需实体线路的通信连接服务，如短信、语音、流量等。",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "",
@@ -369,7 +373,7 @@ export default {
         {
           "title": "云连接",
           "description": "智能云网融合服务，通过统编排实现云资源池间、云-边-端的高效协同，为企业数智化转型提供弹性可扩展的智能连接底座，如云网一体产品等。",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "",
@@ -382,7 +386,7 @@ export default {
         {
           "title": "物联网链接",
           "description": "面向各类智能硬件设备，实现物与物的规模化连接、信息交互及管理服务，如物联卡、5G专网等",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "",
@@ -396,7 +400,7 @@ export default {
         {
           "title": "新型连接",
           "description": "基于“空天地一体”网络及新型通信技术所构建的下一代连接服务，如北斗短信、5G-A、低空等",
-          imgPath: 'left-bottom-bg3',
+          imgPath: bg3,
           "subApp": [
             {
               "subTitle": "",
