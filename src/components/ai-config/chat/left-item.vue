@@ -5,10 +5,13 @@
          src="./assets/chat-commodity-config.svg"
          alt="avator" />
     <div class="left-item-content-wrapper">
-      <div class="left-item-content">
+      <div class="left-item-content-icon" v-if="item.isLoading">
+        <i class="el-icon-loading"></i>
+      </div>
+      <div class="left-item-content" v-if="!item.isLoading">
         {{  content }}
       </div>
-      <copyText :content="content" class="copy-text"></copyText>
+      <copyText :content="content" class="copy-text" v-if="!item.isLoading"></copyText>
     </div>
     <slot name="after"></slot>
   </div>
@@ -28,6 +31,10 @@ export default {
     content:{
       type: String,
       default: ''
+    },
+    item:{
+      type: Object,
+      default: {}
     }
   },
   watch: {
@@ -58,16 +65,18 @@ export default {
   .left-item-content-wrapper {
     display: flex;
     flex-direction: column;
+    .left-item-content-icon {
+      width: 20px;
+      height: 20px;
+    }
     .left-item-content {
-      background-color: rgb(207, 194, 194);
+      background-color: #c0c4cc;
       box-sizing: border-box;
-      border-width: 1px solid rgb(255, 255, 255);
       border-radius: 5px;
       padding: 8px;
       font-size: 12px;
     }
     .copy-text {
-      margin-top: 4px;
       opacity: 0;
       transition: opacity 0.2s;
     }

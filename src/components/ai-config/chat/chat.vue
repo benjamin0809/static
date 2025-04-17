@@ -9,7 +9,7 @@
     <div class="chat-content" ref="chatContent">
       <div v-for="(item, index) in messages" :key="index">
         <!-- AI消息 -->
-        <LeftItem v-if="!item.isUser" :content="item.message" />
+        <LeftItem v-if="!item.isUser" :content="item.message" :item="item" />
         <!-- 用户消息 -->
         <RightItem v-if="item.isUser" :content="item.message" />
       </div>
@@ -20,14 +20,28 @@
       <div class="input-wrapper">
         <el-input
           v-model="inputMessage"
+          type="textarea"
+          :rows="1"
+          :autosize="{ minRows: 1, maxRows: 4 }"
           placeholder="请描述您的需求，按Ctrl+Enter发送"
           :maxlength="500"
-          show-word-limit
-          size="mini"
           @keydown.native="handleKeyDown"
+          @input="handleInput"
+          ref="inputRef"
         />
-        <div class="send-button" @click="sendMessage">
-          <img class="send-icon" src="./assets/send.png" alt="发送" />
+        <div class="bottom-controls">
+          <span class="word-count">{{ inputMessage.length }}/500</span>
+          <div class="send-icon-wrapper">
+            <el-tooltip
+            v-if="!isLoading"
+              effect="dark"
+              content="发送，按Ctrl+Enter快捷发送"
+              placement="top"
+            >
+              <img class="send-icon" src="./assets/send.png" alt="发送" @click="sendMessage" />
+            </el-tooltip>
+            <i class="el-icon-video-pause"  v-if="isLoading" @click="stopRequest"></i>
+          </div>
         </div>
       </div>
     </footer>
@@ -69,9 +83,10 @@ export default {
   computed: {
     // 容器样式
     containerStyle() {
-      return this.height
-        ? { height: this.height + "px", transform: "scale(0.5)", width: "40px" }
-        : {};
+      return {
+        paddingTop: `${this.$headerHeight}px`,
+        paddingBottom: `${this.footerHeight}px`
+      };
     },
   },
   methods: {
@@ -94,6 +109,33 @@ export default {
     },
 
     /**
+     * 处理输入事件
+     */
+    handleInput() {
+      this.$nextTick(() => {
+        const textarea = this.$refs.inputRef.$el.querySelector('textarea');
+        if (textarea) {
+          // 计算文本行数
+          const lineHeight = 20; // 行高
+          const padding = 16; // 上下内边距
+          const minHeight = 44; // 最小高度
+          const maxHeight = 120; // 最大高度
+          
+          // 计算内容高度
+          const contentHeight = textarea.scrollHeight;
+          // 计算实际需要的高度
+          const newHeight = Math.min(Math.max(contentHeight, minHeight), maxHeight);
+          
+          // 更新底部区域高度
+          this.footerHeight = newHeight + 22; // 22px 是底部控制区域的高度
+        }
+      });
+    },
+    stopRequest() {
+      this.isLoading = false
+      this.lastMesgRef.isLoading = false
+    },
+    /**
      * 发送消息
      */
     sendMessage() {
@@ -104,9 +146,31 @@ export default {
         message: this.inputMessage,
       });
       this.inputMessage = "";
+      this.footerHeight = 66; // 重置高度
       this.$nextTick(() => {
         this.scrollToBottom();
       });
+      this.sendToSever()
+    },
+    async sendToSever() {
+      this.lastMesgRef = {
+        message: '',
+        isLoading: true
+      }
+      this.isLoading = true
+      this.messages.push(this.lastMesgRef)
+      const mesg = await this.waitToReply()
+      this.lastMesgRef.message = mesg
+      this.lastMesgRef.isLoading = false
+      this.isLoading = false
+    },
+
+    async waitToReply() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('服务器繁忙,请稍后再试')
+        }, 10000)
+      })
     },
 
     /**
@@ -128,9 +192,10 @@ export default {
   },
   data() {
     return {
-      showLogo: false,
-      displayList: [],
-      height: 0,
+      lastMesgRef: null,
+      isLoading: false,
+      $headerHeight: 44,
+      footerHeight: 66, // 默认高度
       inputMessage: "",
       messages: [
         {
@@ -156,17 +221,22 @@ json格式输出`,
 </script>
 
 <style lang="scss" scoped>
+$header-height: 44px;
+$footer-height: 66px;
 .chat-container {
+  box-sizing: border-box;
   position: relative;
   height: 100%;
-  padding: 44px 0;
+  padding-top: $header-height;
+  padding-bottom: $footer-height;
   border-radius: 8px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom right, #f8f9ff, #f0f4ff);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(to bottom right, #fbf4ff, #ddecff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
 // 头部样式
@@ -178,7 +248,6 @@ json格式输出`,
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -198,11 +267,9 @@ json格式输出`,
   position: relative;
   width: 100%;
   flex: 1;
-  border-radius: 8px;
-  padding: 16px;
+  padding: 12px;
   box-sizing: border-box;
   overflow: auto;
-  background: rgba(255, 255, 255, 0.6);
 
   /* 自定义滚动条样式 */
   &::-webkit-scrollbar {
@@ -230,87 +297,89 @@ json格式输出`,
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 44px;
   box-sizing: border-box;
   box-shadow: 0 -1px 25px 0 rgba(1, 22, 136, 0.05);
-  border-radius: 12px;
   display: flex;
-  padding-right: 12px;
-  align-items: center;
+  padding: 8px 8px 4px;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
+  transition: height 0.3s ease;
 }
 
 // 输入框包装器
 .input-wrapper {
-  margin-left: 12px;
   width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  position: relative;
 
-  // 发送按钮
-  .send-button {
-    height: 28px;
-    width: 30px;
-    margin-left: 0;
-    box-sizing: border-box;
-    border-top: 1px solid rgba(220, 223, 230, 0.8);
-    border-bottom: 1px solid rgba(220, 223, 230, 0.8);
-    background: #f5f7fa;
-    border-top-right-radius: 22px;
-    border-bottom-right-radius: 22px;
+  ::v-deep .el-textarea {
+    width: 100%;
+
+    .el-textarea__inner {
+      background: #ddecff;
+      border-radius: 12px;
+      color: #2c3e50;
+      font-size: 12px;
+      padding: 8px 12px;
+      border: none;
+      //transition: all 0.3s ease;
+      resize: none;
+      line-height: 18px;
+      min-height: 28px !important;
+      box-shadow: none;
+
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+
+      &::placeholder {
+        color: #a8abb2;
+        font-size: 12px;
+      }
+    }
+
+    .el-input__count {
+      display: none;
+    }
+  }
+
+  .bottom-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 4px;
+    padding-right: 8px;
+    width: 100%;
+  }
+
+  .word-count {
+    color: #a8abb2;
+    font-size: 12px;
+    margin-right: 12px;
+  }
+
+  .send-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
-      background: #eef2f7;
+      transform: scale(1.1);
     }
 
     .send-icon {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      margin-top: 1px;
+      width: 16px;
+      height: 16px;
       transition: transform 0.2s ease;
-
-      &:hover {
-        transform: scale(1.1);
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-      }
     }
   }
-
-  // 输入框样式覆盖
-  ::v-deep .el-input__inner {
-    background: #f5f7fa;
-    border-radius: 0;
-    border-top-left-radius: 22px;
-    border-bottom-left-radius: 22px;
-    border-right: none;
-    color: #2c3e50;
-    font-size: 14px;
-    padding: 0 12px;
-    height: 28px;
-    line-height: 28px;
-    border: 1px solid rgba(220, 223, 230, 0.8);
-    transition: all 0.3s ease;
-
-    &::placeholder {
-      color: #a8abb2;
-    }
-
-    &:focus {
-      border-color: #409eff;
-      background: #fff;
-      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.1);
-    }
-  }
-
-  ::v-deep .el-input {
-    .el-input__count-inner {
-      background: transparent;
-      color: #a8abb2;
-      font-size: 12px;
-    }
+  .send-icon-wrapper[disabled=true] {
+    opacity: 0.6;
   }
 }
+
 </style>

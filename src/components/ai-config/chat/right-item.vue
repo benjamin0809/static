@@ -4,6 +4,7 @@
     <div class="right-item-content-wrapper">
       <div class="right-item-content">
         {{ content }}
+        <div class="triangle"></div>
       </div>
       <copyText :content="content" class="copy-text"></copyText>
     </div>
@@ -46,10 +47,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .right-item {
-  margin: 10px 0;
+  margin-top: 4px;
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
   .right-item-avator {
     width: 20px;
     height: 20px;
@@ -58,16 +61,31 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    max-width: 100%;
     .right-item-content {
-      background: #eff6ff;
+      --backgroud: #b8cee9;
+      background: var(--backgroud);
       box-sizing: border-box;
-      border-width: 1px solid rgb(255, 255, 255);
       border-radius: 5px;
       padding: 8px;
       font-size: 12px;
+      line-height: 1.5;
+      word-break: break-word;
+      white-space: pre-wrap;
+      max-width: 100%;
+      position: relative;
+      .triangle {
+        position: absolute;
+        right: -6px;
+        bottom: 12px;
+        width: 0;
+        height: 0;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 6px solid var(--backgroud);
+      }
     }
     .copy-text {
-      margin-top: 4px;
       opacity: 0;
       transition: opacity 0.2s;
     }

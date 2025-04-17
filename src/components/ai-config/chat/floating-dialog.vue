@@ -102,10 +102,8 @@ export default {
   top: 40px;
   left: 40px;
   width: 300px;
-  height: 50vh;
+  height: max(60vh, 600px);
 }
-
-
 
 /* 进入离开动画 */
 .dialog-enter-active {
