@@ -5,7 +5,7 @@
       <el-breadcrumb-item><a>已封装商品清单</a></el-breadcrumb-item>
     </el-breadcrumb> -->
     <div style="text-align: right;">
-      <el-button type="" size="small" @click="() => $router.back()">返回</el-button>
+      <el-button type="" size="small" @click="() => $router.push('/')">返回</el-button>
     </div>
     <!-- <Popover style="text-align: right"></Popover> -->
     <div class="label">
