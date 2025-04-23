@@ -1,9 +1,12 @@
 <template>
   <div style="padding: 24px 48px">
-    <el-breadcrumb separator="/">
+    <!-- <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">原子产品库</el-breadcrumb-item>
       <el-breadcrumb-item><a>产品目录查询</a></el-breadcrumb-item>
-    </el-breadcrumb>
+    </el-breadcrumb> -->
+    <div style="text-align: right;">
+      <el-button type="" size="small" @click="() => $router.back()">返回</el-button>
+    </div>
     <div class="query-area">
       <el-form ref="form" :model="form" label-width="120px">
         <el-row :gutter="10">

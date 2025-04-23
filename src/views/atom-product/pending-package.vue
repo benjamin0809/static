@@ -1,9 +1,12 @@
 <template>
   <div style="height: 400px; padding: 24px">
-    <el-breadcrumb separator="/">
+    <!-- <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/store' }">原子货架</el-breadcrumb-item>
       <el-breadcrumb-item><a >产品清单</a></el-breadcrumb-item>
-    </el-breadcrumb>
+    </el-breadcrumb> -->
+    <div style="text-align: right;">
+      <el-button type="" size="small" @click="() => $router.back()">返回</el-button>
+    </div>
     <!-- <Popover style="text-align: right"></Popover> -->
     <div class="label">待封装产品清单</div>
 
