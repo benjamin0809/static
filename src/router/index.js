@@ -16,7 +16,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: Product,
+    component: AtomStore,
   },
   {
     path: '/products', // 产品列表首页
@@ -58,7 +58,6 @@ const routes = [
     path: '/newdialog', // 产品目录查询
     component: NewDialog,
   },
-  
 ]
 export default new VueRouter({
   mode: 'hash',

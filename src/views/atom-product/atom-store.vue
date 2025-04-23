@@ -1,9 +1,9 @@
 <template>
   <div style="height: 400px; padding: 24px; text-align: center">
-    <el-breadcrumb separator="/">
+    <!-- <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/store' }">原子货架</el-breadcrumb-item>
       <el-breadcrumb-item><a>细分市场原子货架</a></el-breadcrumb-item>
-    </el-breadcrumb>
+    </el-breadcrumb> -->
 
     <div class="ppp-box">
       <h1>细分市场原子货架</h1>

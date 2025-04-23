@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <!-- <Header></Header> -->
     <div class="content"><router-view></router-view></div>
   </div>
 </template>
@@ -20,6 +20,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content {
-  padding-top: 44px;;
+  // padding-top: 44px;;
+  position: relative;
 }
 </style>

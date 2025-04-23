@@ -264,8 +264,8 @@ export default {
     width: 200px;
     background-color: #fff;
     padding: 10px;
-    position: fixed;
-    top: 96px;
+    position: absolute;
+    top: 48px;
     left: 0;
     bottom: 0;
     overflow-y: auto;
@@ -340,7 +340,7 @@ export default {
 }
 .product-package-title {
   position: sticky;
-  top: 48px;
+  top: 0px;
   left: 0;
   width: 100%;
   height: 48px;
@@ -350,7 +350,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   .title-name {
     font-family: PingFangSC-Semibold;
     font-weight: 600;
